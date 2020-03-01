@@ -1,0 +1,29 @@
+adaa-example:
+    # client's IBAN
+  iban:
+    # client's account currency
+  currency: CZK
+    # URI of the KB Client Registration page
+  client-registration-uri: https://api.kb.cz/client-registration
+    # URI of the page of the KB Authorization server for getting OAuth2 authorization code
+  authorization-uri: https://login.kb.cz/autfe/ssologin
+    # URI of the endpoint of the KB OAuth2 API for getting access token
+  access-token-uri: https://api.kb.cz/open/api/oauth2/v1/access_token
+    # Base64 encoded 256-bit key that used during getting client registration process
+  secret:
+    # Path to the keystore with client certificate
+  keystore-location:
+    # Password of the keystore with client certificate
+  keystore-password:
+    # Password of the client certificate
+  client-cert-password:
+
+adaa:
+  client:
+    baseUri: https://api.kb.cz/open/api/adaa/v1
+    apiKey:
+
+clientregistration:
+  client:
+    baseUri: https://api.kb.cz/open/api/client-registration/v1/
+    apiKey:
