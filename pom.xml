@@ -30,6 +30,8 @@
         <junit.platform.version>1.5.2</junit.platform.version>
         <jersey.version>2.29.1</jersey.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
+        <adda.client.version>1.1.0</adda.client.version>
+        <clientregistration.client.version>1.0.0</clientregistration.client.version>
     </properties>
 
     <scm>
@@ -50,22 +52,30 @@
             <dependency>
                 <groupId>cz.kb.openbanking.adaa.client</groupId>
                 <artifactId>api</artifactId>
-                <version>1.0.0</version>
+                <version>${adda.client.version}</version>
+                <scope>system</scope>
+                <systemPath>${user.dir}/lib/adaa-client-api-1.1.0.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>cz.kb.openbanking.adaa.client</groupId>
                 <artifactId>spring-boot-auto-configuration</artifactId>
-                <version>1.0.0</version>
+                <version>${adda.client.version}</version>
+                <scope>system</scope>
+                <systemPath>${user.dir}/lib/adaa-client-spring-boot-auto-configuration-1.1.0.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>cz.kb.openbanking.clientregistration.client</groupId>
                 <artifactId>api</artifactId>
-                <version>1.0.0</version>
+                <version>${clientregistration.client.version}</version>
+                <scope>system</scope>
+                <systemPath>${user.dir}/lib/clientregistration-api-1.0.0.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>cz.kb.openbanking.clientregistration.client</groupId>
                 <artifactId>spring-boot-auto-configuration</artifactId>
-                <version>1.0.0</version>
+                <version>${clientregistration.client.version}</version>
+                <scope>system</scope>
+                <systemPath>${user.dir}/lib/clientregistration-spring-boot-auto-configuration-1.0.0.jar</systemPath>
             </dependency>
 
             <!--LOG-->
@@ -97,6 +107,12 @@
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
                 <version>3.0.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.iban4j</groupId>
+                <artifactId>iban4j</artifactId>
+                <version>3.2.1</version>
             </dependency>
 
             <!-- Testing -->
@@ -131,20 +147,10 @@
                 <scope>test</scope>
             </dependency>
         </dependencies>
-
     </dependencyManagement>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>

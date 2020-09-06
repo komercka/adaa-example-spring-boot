@@ -2,8 +2,8 @@ package cz.kb.openbanking.adaa.example.springboot.web.controller;
 
 import cz.kb.openbanking.adaa.example.springboot.web.common.EndpointUris;
 import cz.kb.openbanking.adaa.example.springboot.web.oauth2.OAuth2FlowProvider;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
@@ -17,23 +17,13 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 @Controller
 @RequestMapping("/")
+@AllArgsConstructor
 public class RootController {
 
     /**
      * OAuth2 authorization provider.
      */
     private final OAuth2FlowProvider oAuth2FlowProvider;
-
-    /**
-     * New instance.
-     *
-     * @param oAuth2FlowProvider OAuth2 authorization provider
-     */
-    public RootController(OAuth2FlowProvider oAuth2FlowProvider) {
-        Assert.notNull(oAuth2FlowProvider, "oAuth2FlowProvider must not be null");
-
-        this.oAuth2FlowProvider = oAuth2FlowProvider;
-    }
 
     /**
      * Resolves application's entry point.

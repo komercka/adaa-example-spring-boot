@@ -3,11 +3,13 @@ package cz.kb.openbanking.adaa.example.springboot.web.oauth2;
 import javax.annotation.Nullable;
 
 import cz.kb.openbanking.adaa.example.springboot.core.configuration.AdaaProperties;
+import cz.kb.openbanking.adaa.example.springboot.web.common.EndpointUris;
 import org.glassfish.jersey.client.oauth2.ClientIdentifier;
 import org.glassfish.jersey.client.oauth2.OAuth2ClientSupport;
 import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
@@ -43,6 +45,11 @@ public class OAuth2FlowProvider {
     private String accessToken;
 
     /**
+     * OAuth2 authorization redirect URI.
+     */
+    private String oauthRedirectUri;
+
+    /**
      * ADAA configuration properties.
      */
     private final AdaaProperties adaaProperties;
@@ -56,22 +63,22 @@ public class OAuth2FlowProvider {
         Assert.notNull(adaaProperties, "adaaProperties must not be null");
 
         this.adaaProperties = adaaProperties;
+        this.oauthRedirectUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                                                           .path(EndpointUris.AUTHORIZATION)
+                                                           .build().toUriString();
     }
 
     /**
      * Prepare redirect response to KB OAuth2 authorization consent request.
      *
-     * @param redirectUri URI to which authorization token should be redirected
      * @return redirect response to KB OAuth2 authorization consent request
      */
-    public RedirectView authorizationRedirect(String redirectUri) {
-        Assert.hasText(redirectUri, "redirectUri must not be empty");
-
+    public RedirectView authorizationRedirect() {
         OAuth2CodeGrantFlow flow = OAuth2ClientSupport.authorizationCodeGrantFlowBuilder(
                 getClientIdentifier(),
                 adaaProperties.getAuthorizationUri(),
                 adaaProperties.getAccessTokenUri())
-                .redirectUri(redirectUri)
+                .redirectUri(this.oauthRedirectUri)
                 .scope(ADAA_SCOPE)
                 .build();
 
@@ -82,6 +89,16 @@ public class OAuth2FlowProvider {
 
         // redirect user to KB OAuth2 authorization server
         return new RedirectView(kbAuthURI);
+    }
+
+    /**
+     * Gets redirect URI into OAuth2 (for getting authorization code).
+     * This URI must be fill in software statement and client registration.
+     *
+     * @return redirect URI
+     */
+    public String getOauthRedirectUri() {
+        return this.oauthRedirectUri;
     }
 
     /**

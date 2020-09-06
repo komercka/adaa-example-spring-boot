@@ -3,8 +3,8 @@ package cz.kb.openbanking.adaa.example.springboot.web.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.jsonwebtoken.lang.Assert;
 import lombok.Value;
+import org.springframework.util.Assert;
 
 /**
  * Represents JSON object with client's identifiers.

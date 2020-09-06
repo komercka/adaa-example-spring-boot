@@ -4,7 +4,9 @@ import javax.annotation.Nullable;
 
 import cz.kb.openbanking.adaa.client.model.generated.AccountBalance;
 import cz.kb.openbanking.adaa.client.model.generated.AccountTransaction;
+import cz.kb.openbanking.adaa.client.model.generated.Statement;
 import cz.kb.openbanking.adaa.example.springboot.web.model.AccountBalanceModel;
+import cz.kb.openbanking.adaa.example.springboot.web.model.StatementModel;
 import cz.kb.openbanking.adaa.example.springboot.web.model.TransactionModel;
 import org.mapstruct.Mapper;
 
@@ -15,7 +17,7 @@ import org.mapstruct.Mapper;
  * @since 1.0
  */
 @Mapper(componentModel = "spring")
-public interface TransactionMapper {
+public interface AccountMapper {
 
     /**
      * Maps {@link AccountTransaction} to the {@link TransactionModel}.
@@ -34,4 +36,13 @@ public interface TransactionMapper {
      */
     @Nullable
     AccountBalanceModel toAccountBalanceModel(@Nullable AccountBalance accountBalance);
+
+    /**
+     * Maps {@link Statement} to the {@link StatementModel}.
+     *
+     * @param statement {@link Statement}
+     * @return {@code null} if input {@link Statement} is {@code null}, otherwise - {@link StatementModel}
+     */
+    @Nullable
+    StatementModel toStatementModel(@Nullable Statement statement);
 }
