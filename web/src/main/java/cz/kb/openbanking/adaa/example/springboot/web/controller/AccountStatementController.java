@@ -29,8 +29,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * This resource serves for getting account statements.
+ *
  * @author <a href="mailto:o.kuchynski@gmail.com">Aleh Kuchynski</a>
- * @since 1.0
+ * @since 1.1
  */
 @Controller
 @RequestMapping("/statements")

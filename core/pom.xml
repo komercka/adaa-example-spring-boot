@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>core</artifactId>
+    <name>Spring Boot ADAA API example (core)</name>
 
     <dependencies>
         <dependency>
