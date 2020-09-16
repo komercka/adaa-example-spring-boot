@@ -2,6 +2,7 @@ package cz.kb.openbanking.adaa.example.springboot.web.controller;
 
 import cz.kb.openbanking.adaa.example.springboot.web.common.EndpointUris;
 import cz.kb.openbanking.adaa.example.springboot.web.oauth2.OAuth2FlowProvider;
+import lombok.AllArgsConstructor;
 import org.glassfish.jersey.client.oauth2.TokenResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -19,20 +20,10 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.0
  */
 @Controller
+@AllArgsConstructor
 public class AuthorizationController {
 
     private final OAuth2FlowProvider oAuth2FlowProvider;
-
-    /**
-     * New instance.
-     *
-     * @param oAuth2FlowProvider {@link OAuth2FlowProvider}
-     */
-    public AuthorizationController(OAuth2FlowProvider oAuth2FlowProvider) {
-        Assert.notNull(oAuth2FlowProvider, "oAuth2FlowProvider must not be null");
-
-        this.oAuth2FlowProvider = oAuth2FlowProvider;
-    }
 
     /**
      * Receives the authorization code, call KB OAuth2 API to get access token

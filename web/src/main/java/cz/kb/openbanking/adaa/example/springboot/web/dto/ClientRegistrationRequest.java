@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
 
-import io.jsonwebtoken.lang.Assert;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.util.Assert;
 
 /**
  * Contains indicators of transaction type: credit or debit.

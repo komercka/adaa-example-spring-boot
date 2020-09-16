@@ -19,6 +19,7 @@ import cz.kb.openbanking.clientregistration.client.api.model.SoftwareStatement;
 import cz.kb.openbanking.clientregistration.client.api.model.TokenEndpointAuthMethodEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import org.glassfish.jersey.client.oauth2.ClientIdentifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -37,6 +38,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.0
  */
 @Controller
+@AllArgsConstructor
 public class ClientRegistrationController {
 
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -48,29 +50,6 @@ public class ClientRegistrationController {
     private final AdaaProperties adaaProperties;
 
     private final SoftwareStatementsApi softwareStatementsApi;
-
-    /**
-     * New instance.
-     *
-     * @param oAuth2FlowProvider    {@link OAuth2FlowProvider}
-     * @param decryptionService     {@link Aes256DecryptionService}
-     * @param adaaProperties        {@link AdaaProperties}
-     * @param softwareStatementsApi {@link SoftwareStatementsApi}
-     */
-    public ClientRegistrationController(OAuth2FlowProvider oAuth2FlowProvider,
-                                        Aes256DecryptionService decryptionService, AdaaProperties adaaProperties,
-                                        SoftwareStatementsApi softwareStatementsApi)
-    {
-        Assert.notNull(oAuth2FlowProvider, "oAuth2FlowProvider must not be null");
-        Assert.notNull(decryptionService, "decryptionService must not be null");
-        Assert.notNull(adaaProperties, "adaaProperties must not be null");
-        Assert.notNull(softwareStatementsApi, "softwareStatementsApi must not be null");
-
-        this.oAuth2FlowProvider = oAuth2FlowProvider;
-        this.decryptionService = decryptionService;
-        this.adaaProperties = adaaProperties;
-        this.softwareStatementsApi = softwareStatementsApi;
-    }
 
     /**
      * Returns a registration page with a form. After completion of this form
@@ -140,7 +119,7 @@ public class ClientRegistrationController {
                 new ClientIdentifier(clientIdDto.getClientId(), clientIdDto.getClientSecret());
         oAuth2FlowProvider.setClientIdentifier(clientIdentifier);
 
-        return oAuth2FlowProvider.authorizationRedirect(getOauthRedirectUri());
+        return oAuth2FlowProvider.authorizationRedirect();
     }
 
     /**
@@ -155,7 +134,7 @@ public class ClientRegistrationController {
         Assert.notNull(jwt, "jwt must not be null");
 
         return new ClientRegistrationRequest(softwareName, null,
-                "web", Collections.singletonList(getOauthRedirectUri()), Collections.singletonList("adaa"),
+                "web", Collections.singletonList(oAuth2FlowProvider.getOauthRedirectUri()), Collections.singletonList("adaa"),
                 jwt.getToken(), adaaProperties.getSecret());
     }
 

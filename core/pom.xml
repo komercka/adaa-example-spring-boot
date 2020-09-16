@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>core</artifactId>
+    <name>Spring Boot ADAA API example (core)</name>
 
     <dependencies>
         <dependency>
@@ -25,8 +26,8 @@
 
         <!-- SPRING -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>

@@ -1,6 +1,6 @@
 package cz.kb.openbanking.adaa.example.springboot.web.model;
 
-import io.jsonwebtoken.lang.Assert;
+import org.springframework.util.Assert;
 
 /**
  * Contains indicators of transaction type: credit or debit.
