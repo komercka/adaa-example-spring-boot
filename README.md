@@ -3,14 +3,14 @@
 #### Links
 * [KB API Business portal](https://www.kb.cz/api)
 * [KB API Developer portal](https://api.kb.cz/open/apim/store)
-* [KB ADAA API Java SDK](TBD)
-* [KB Client Registration API Java SDK](TBD)
+* [KB ADAA API Java SDK](https://github.com/komercka/adaa-client)
+* [KB Client Registration API Java SDK](https://github.com/komercka/client-registration-client)
 * [ADAA API technical manual (for production version)](https://www.kb.cz/getmedia/ffc70c65-cc28-4809-ad47-22b7b4361ce5/ADAA_Technical_manual_EN.pdf.aspx)
 * [ADAA API technical manual (for sandbox version)](https://www.kb.cz/getmedia/3662e39f-04af-4872-bf02-eda9c05a0c11/API_Sandbox_Account-Direct-Access-API-Manual_EN.pdf.aspx)
 
 ---
 
-This Java web application serves as a reference example or an inspiration for developers who want to develop software based on the KB ADAA API. 
+This Java web application serves as a reference example, or an inspiration for developers who want to develop software based on the KB ADAA API. 
 This example is based on the Spring Boot framework. For more examples check our Github repository.
 
 #### How to run
@@ -45,7 +45,7 @@ KB ADAA API authorization process is based on the OAuth2 specification.
 Thus, to call KB ADAA API and get user's transaction history you must complete following steps:
 1. Registration of the application's instance
     * user grants access
-    * gets software statement by calling `SoftwareStatementsApi#softwareStatement(SoftwareStatement req)` using [KB Client Registration API Java SDK](TBD)
+    * gets software statement by calling `SoftwareStatementsApi#softwareStatement(SoftwareStatement req)` using [KB Client Registration API Java SDK](https://github.com/komercka/client-registration-client)
     * redirects user to the KB login page for authentication
     * after success authentication KB SAML server will send response with an encrypted client ID and a client secret to `/register/client` application endpoint. 
     Application decrypts client's registration data and store them to the further usage
