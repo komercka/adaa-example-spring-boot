@@ -4,6 +4,8 @@ import javax.annotation.Nullable;
 
 import cz.kb.openbanking.adaa.example.springboot.core.configuration.AdaaProperties;
 import cz.kb.openbanking.adaa.example.springboot.web.common.EndpointUris;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.client.oauth2.ClientIdentifier;
 import org.glassfish.jersey.client.oauth2.OAuth2ClientSupport;
 import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.0
  */
 @Component
+@RequiredArgsConstructor
 public class OAuth2FlowProvider {
 
     /**
@@ -55,20 +58,6 @@ public class OAuth2FlowProvider {
     private final AdaaProperties adaaProperties;
 
     /**
-     * New instance.
-     *
-     * @param adaaProperties ADAA example properties
-     */
-    public OAuth2FlowProvider(AdaaProperties adaaProperties) {
-        Assert.notNull(adaaProperties, "adaaProperties must not be null");
-
-        this.adaaProperties = adaaProperties;
-        this.oauthRedirectUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                                                           .path(EndpointUris.AUTHORIZATION)
-                                                           .build().toUriString();
-    }
-
-    /**
      * Prepare redirect response to KB OAuth2 authorization consent request.
      *
      * @return redirect response to KB OAuth2 authorization consent request
@@ -78,7 +67,7 @@ public class OAuth2FlowProvider {
                 getClientIdentifier(),
                 adaaProperties.getAuthorizationUri(),
                 adaaProperties.getAccessTokenUri())
-                .redirectUri(this.oauthRedirectUri)
+                .redirectUri(getOauthRedirectUri())
                 .scope(ADAA_SCOPE)
                 .build();
 
@@ -98,6 +87,13 @@ public class OAuth2FlowProvider {
      * @return redirect URI
      */
     public String getOauthRedirectUri() {
+        if (StringUtils.isBlank(this.oauthRedirectUri)) {
+            this.oauthRedirectUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                                                               .path(EndpointUris.AUTHORIZATION)
+                                                               .build()
+                                                               .toUriString();
+        }
+
         return this.oauthRedirectUri;
     }
 

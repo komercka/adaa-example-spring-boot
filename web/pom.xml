@@ -28,6 +28,14 @@
             <groupId>cz.kb.openbanking.adaa.client</groupId>
             <artifactId>spring-boot-auto-configuration</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cz.kb.openbanking.adaa.client</groupId>
+            <artifactId>jersey-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cz.kb.openbanking.clientregistration.client</groupId>
+            <artifactId>jersey-impl</artifactId>
+        </dependency>
 
         <!-- SPRING -->
         <dependency>
@@ -56,6 +64,10 @@
             <groupId>org.glassfish.jersey.security</groupId>
             <artifactId>oauth2-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -75,6 +87,10 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
         </dependency>
 
         <!-- Testing -->
