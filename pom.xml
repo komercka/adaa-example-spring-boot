@@ -79,6 +79,20 @@
                 <scope>system</scope>
                 <systemPath>${user.dir}/lib/clientregistration-spring-boot-auto-configuration-1.0.0.jar</systemPath>
             </dependency>
+            <dependency>
+                <groupId>cz.kb.openbanking.adaa.client</groupId>
+                <artifactId>jersey-impl</artifactId>
+                <version>${adaa.client.version}</version>
+                <scope>system</scope>
+                <systemPath>${user.dir}/lib/adaa-client-jersey-impl-1.1.0.jar</systemPath>
+            </dependency>
+            <dependency>
+                <groupId>cz.kb.openbanking.clientregistration.client</groupId>
+                <artifactId>jersey-impl</artifactId>
+                <version>${clientregistration.client.version}</version>
+                <scope>system</scope>
+                <systemPath>${user.dir}/lib/clientregistration-client-jersey-impl-1.0.0.jar</systemPath>
+            </dependency>
 
             <!--LOG-->
             <dependency>
@@ -115,6 +129,12 @@
                 <groupId>org.iban4j</groupId>
                 <artifactId>iban4j</artifactId>
                 <version>3.2.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.4</version>
             </dependency>
 
             <!-- Testing -->
