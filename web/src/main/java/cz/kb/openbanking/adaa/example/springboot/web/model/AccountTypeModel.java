@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 public enum AccountTypeModel {
 
     /**
-     * Komcercni Banka account.
+     * Komercni Banka account.
      */
     KB("KB"),
 

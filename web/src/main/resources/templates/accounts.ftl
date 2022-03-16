@@ -32,29 +32,29 @@
     <div class="row d-flex justify-content-center">
         <div class="col-lg-offset-2 col-lg-8">
             <header class="page-header text-center mt-4">
-                <h3>Stahování výpisů z účtu</h3>
+                <h3>Seznam účtů</h3>
             </header>
             <div class="mt-4">
-                <#list statements as statement>
-                    <table class="table text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Issued date</th>
-                                <th scope="col">Number of pages</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>${statement.statementId}</td>
-                                <td>${statement.issued}</td>
-                                <td>${statement.pagesCount}</td>
-                                <td><a href="pdf?id=${statement.statementId?string["0"]}&accountId=${accountId}">Download</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </#list>
+                <table class="table text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">IBAN</th>
+                        <th scope="col">Měna</th>
+                        <th scope="col">Transakce</th>
+                        <th scope="col">Výpisy</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <#list accounts as account>
+                        <tr>
+                            <td>${account.iban}</td>
+                            <td>${account.currency}</td>
+                            <td><a href="transactions?accountId=${account.accountId}">Transakce</a></td>
+                            <td><a href="statements/list?accountId=${account.accountId}">Výpisy</a></td>
+                        </tr>
+                    </#list>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

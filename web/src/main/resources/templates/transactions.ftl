@@ -19,11 +19,8 @@
 
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link text-light" href="transactions">Transakce</a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="statements/list">Výpisy</a>
+                <a class="nav-link text-light" href="/accounts">Seznam účtů</a>
             </li>
         </ul>
         <div class="my-2 my-lg-0c text-light"><span>František Koudelka</span> <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></div>
@@ -35,7 +32,7 @@
             <header class="page-header text-center mt-2">
                 <h3>Transakční historie</h3>
                 <nav class="nav justify-content-between mt-4">
-                    <span>Přehled plateb na účtu <span class="font-weight-bold">${iban}</span></br>
+                    <span>Přehled plateb na účtu</br>
                     Aktuální zůstatek
                         <#if balance.creditDebitIndicator == "DEBIT">
                             <span class="text-danger">-${balance.amount.value} ${balance.amount.currency}</span>
@@ -43,7 +40,7 @@
                             <span class="text-success">${balance.amount.value} ${balance.amount.currency}</span>
                         </#if>
                     </span>
-                    <span><a href="statements/list">Download PDF statements</a></span>
+                    <span><a href="statements/list?accountId=${accountId}">Download PDF statements</a></span>
                 </nav>
             </header>
             <div class="accordion mt-3" id="accordionExample">

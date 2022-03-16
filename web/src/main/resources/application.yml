@@ -1,8 +1,4 @@
 adaa-example:
-    # client's IBAN
-  iban:
-    # client's account currency
-  currency: CZK
     # URI of the KB Client Registration page
   client-registration-uri: https://api.kb.cz/client-registration
     # URI of the page of the KB Authorization server for getting OAuth2 authorization code

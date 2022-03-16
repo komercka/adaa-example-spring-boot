@@ -12,8 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
- * This resource serves to receive authorization code (after user grants access to this application)
- * and then call KB OAuth2 API to get access token.
+ * Resource to receive authorization code (after user grants access to this application) and to call KB OAuth2 API to get access token
+ * afterwards.
  *
  * @author <a href="mailto:aleh_kuchynski@kb.cz">Aleh Kuchynski</a>
  * @see OAuth2FlowProvider
@@ -26,17 +26,16 @@ public class AuthorizationController {
     private final OAuth2FlowProvider oAuth2FlowProvider;
 
     /**
-     * Receives the authorization code, call KB OAuth2 API to get access token
-     * and set it to the {@link OAuth2FlowProvider}.
+     * Receives the authorization code, calls KB OAuth2 API to get access token and sets it to the {@link OAuth2FlowProvider}.
      *
      * @param authCode OAuth2 authorization code
-     * @param state described by OAuth2 specification and serves to prevent possible CSRF attack
-     *
-     * @return redirect user to transaction's resource
+     * @param state    described by OAuth2 specification and serves to prevent possible CSRF attack
+     * @return redirect user to account's resource
      */
     @GetMapping(EndpointUris.AUTHORIZATION)
     public RedirectView authorize(@RequestParam("code") String authCode,
-                                  @RequestParam("state") String state) {
+                                  @RequestParam("state") String state)
+    {
         Assert.hasText(authCode, "authCode must not be empty");
         Assert.hasText(state, "state must not be empty");
 
@@ -44,10 +43,10 @@ public class AuthorizationController {
         TokenResult tokenResult = oAuth2FlowProvider.getFlow().finish(authCode, state);
         oAuth2FlowProvider.setAccessToken(tokenResult.getAccessToken());
 
-        // authorization is finished -> now redirecting back to the 'transactions' resource
+        // authorization is finished -> now redirecting back to the 'accounts' resource
         String transactionUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(EndpointUris.TRANSACTIONS)
-                .build().toUriString();
+                                                           .path(EndpointUris.ACCOUNTS)
+                                                           .build().toUriString();
         return new RedirectView(transactionUri);
     }
 }

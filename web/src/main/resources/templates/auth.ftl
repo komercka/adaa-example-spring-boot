@@ -25,7 +25,7 @@
                 <h3>Authorizace klienta</h3>
             </div>
             <p class="text-left">
-                Pro zobrazení vašich trasnakcí z účtů KB povolte službu Přímý přístup k účtu prostřednictvím API
+                Pro zobrazení vašich transakcí z účtů KB povolte službu Přímý přístup k účtu prostřednictvím API
             </p>
             <button id="registerBtn" class="btn btn-primary">Povolit službu</button>
     </div>
