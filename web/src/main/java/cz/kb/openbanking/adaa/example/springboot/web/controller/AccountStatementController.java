@@ -3,20 +3,17 @@ package cz.kb.openbanking.adaa.example.springboot.web.controller;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.Currency;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import cz.kb.openbanking.adaa.client.api.AccountApi;
-import cz.kb.openbanking.adaa.client.api.model.Account;
-import cz.kb.openbanking.adaa.example.springboot.core.configuration.AdaaProperties;
 import cz.kb.openbanking.adaa.example.springboot.web.mapper.AccountMapper;
 import cz.kb.openbanking.adaa.example.springboot.web.model.StatementModel;
 import cz.kb.openbanking.adaa.example.springboot.web.oauth2.OAuth2FlowProvider;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.iban4j.Iban;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -29,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * This resource serves for getting account statements.
+ * Resource to get account statements of the KB ADAA API.
  *
  * @author <a href="mailto:o.kuchynski@gmail.com">Aleh Kuchynski</a>
  * @since 1.1
@@ -45,50 +42,55 @@ public class AccountStatementController {
 
     private final AccountApi accountApi;
 
-    private final AdaaProperties adaaProperties;
-
     private final OAuth2FlowProvider oAuth2FlowProvider;
 
     /**
      * Endpoint that serves for downloading PDF account statement.
      *
+     * @param accountId id of account
      * @return account statement as PDF file
      */
     @GetMapping("/list")
-    public ModelAndView getAccountStatements() {
+    public ModelAndView getAccountStatements(@RequestParam String accountId) {
+        Assert.hasText(accountId, "accountId must not be blank");
+
         // check access token
         if (StringUtils.isBlank(oAuth2FlowProvider.getAccessToken())) {
             oAuth2FlowProvider.authorizationRedirect();
         }
 
-        Account account = new Account(Iban.valueOf(adaaProperties.getIban()), Currency.getInstance(adaaProperties.getCurrency()));
-
         // get statements for last 30 days
         OffsetDateTime fromDateTime = OffsetDateTime.now(ZoneId.systemDefault()).minusDays(31).truncatedTo(ChronoUnit.DAYS);
-        List<StatementModel> statements = accountApi.statements(account, oAuth2FlowProvider.getAccessToken(), fromDateTime)
+        List<StatementModel> statements = accountApi.statements(accountId, oAuth2FlowProvider.getAccessToken(), fromDateTime)
                                                     .find().stream()
                                                     .map(accountMapper::toStatementModel)
                                                     .collect(Collectors.toList());
 
-        return new ModelAndView("statements", Collections.singletonMap("statements", statements));
+        Map<String, Object> model = new HashMap<>();
+        model.put("statements", statements);
+        model.put("accountId", accountId);
+
+        return new ModelAndView("statements", model);
     }
 
     /**
      * Endpoint that serves for downloading PDF account statement.
      *
+     * @param statementId id of statement
+     * @param accountId   id of account
      * @return account statement as PDF file
      */
     @GetMapping("/pdf")
-    public ResponseEntity<byte[]> getPdfStatement(@RequestParam("id") Long statementId) {
+    public ResponseEntity<byte[]> getPdfStatement(@RequestParam("id") Long statementId, @RequestParam String accountId) {
         Assert.notNull(statementId, "statementId must not be null");
+        Assert.hasText(accountId, "accountId must not be blank");
 
         // check access token
         if (StringUtils.isBlank(oAuth2FlowProvider.getAccessToken())) {
             oAuth2FlowProvider.authorizationRedirect();
         }
 
-        Account account = new Account(Iban.valueOf(adaaProperties.getIban()), Currency.getInstance(adaaProperties.getCurrency()));
-        byte[] pdfStatement = accountApi.statementPdf(account, oAuth2FlowProvider.getAccessToken(), statementId).find();
+        byte[] pdfStatement = accountApi.statementPdf(accountId, oAuth2FlowProvider.getAccessToken(), statementId).find();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);

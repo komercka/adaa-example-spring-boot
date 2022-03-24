@@ -16,8 +16,6 @@ This example is based on the Spring Boot framework. For more examples check our 
 #### How to run
 1. Complete application properties located 
 in the `./web/src/main/resources/application.yml` file:
-    * `adaa-examle.iban` - account's IBAN code
-    * `adaa-examle.currency` - account's currency
     * `adaa-examle.client-registration-uri` - URI of the page of the KB Client Registration page
     * `adaa-examle.authorization-uri` - URI of the page of the KB Authorization server for getting OAuth2 authorization code
     * `adaa-examle.access-token-uri` - URI of the endpoint of the KB OAuth2 API for getting access token

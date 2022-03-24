@@ -23,18 +23,6 @@ public class AdaaProperties {
     public static final String ADAA_PROPERTY_PREFIX = "adaa-example";
 
     /**
-     * Client's IBAN.
-     */
-    @NotBlank
-    private String iban;
-
-    /**
-     * Client's account currency.
-     */
-    @NotBlank
-    private String currency;
-
-    /**
      * URI of the page of the KB Client Registration page.
      */
     @NotBlank

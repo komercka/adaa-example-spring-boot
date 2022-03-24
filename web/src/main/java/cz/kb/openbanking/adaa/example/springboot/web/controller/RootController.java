@@ -37,7 +37,7 @@ public class RootController {
                 || oAuth2FlowProvider.getClientIdentifier().getClientSecret() == null) {
             return new RedirectView(EndpointUris.CLIENT_REGISTRATION_FORM);
         } else {
-            return new RedirectView(EndpointUris.TRANSACTIONS);
+            return new RedirectView(EndpointUris.ACCOUNTS);
         }
     }
 }
