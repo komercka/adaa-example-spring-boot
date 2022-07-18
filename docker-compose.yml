@@ -6,4 +6,4 @@ adaa:
   volumes:
     - '.:/app'
   ports:
-    - 9874:8080
+    - 8080:8080
