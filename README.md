@@ -34,7 +34,7 @@ in the `./web/src/main/resources/application.yml` file:
     ```
     and then run the embedded Tomcat server using command in web maven module:
     ```
-    mvn spring-boot:run
+    mvn spring-boot:run -pl web
     ```
 3. Or you can deploy a built `war` file to your own instance of the application server
 
