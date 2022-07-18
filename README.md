@@ -38,6 +38,13 @@ in the `./web/src/main/resources/application.yml` file:
     ```
 3. Or you can deploy a built `war` file to your own instance of the application server
 
+### Running with Docker
+
+**Don't forget to put your certificate somewhere inside the docker and fill in the `application.yml` path inside the container!**
+
+1. `make build`
+2. `make start`
+
 #### Description
 KB ADAA API authorization process is based on the OAuth2 specification. 
 Thus, to call KB ADAA API and get user's transaction history you must complete following steps:

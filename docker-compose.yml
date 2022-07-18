@@ -1,0 +1,9 @@
+
+adaa:
+  image: 'docker.io/library/adaa'
+  command: 'mvn spring-boot:run -X -pl web'
+  working_dir: '/app'
+  volumes:
+    - '.:/app'
+  ports:
+    - 8080:8080
