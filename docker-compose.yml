@@ -1,0 +1,11 @@
+
+adaa:
+  image: 'docker.io/library/adaa'
+  command: 'mvn spring-boot:run -X -pl web'
+  working_dir: '/app'
+  volumes:
+    - '.:/app'
+#    - './web/src/main/resources/application.yml:/app/web/src/main/resources/application.yml'
+#    - './web/src/main/resources/cert_parys_KB.pfx:/app/web/src/main/resources/cert_parys_KB.pfx'
+  ports:
+    - 9874:8080
